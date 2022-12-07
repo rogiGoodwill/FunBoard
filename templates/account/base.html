@@ -1,0 +1,43 @@
+{% extends 'boardApp/base.html' %}
+{% load static %}
+
+  {% block title %}
+    {% block head_title %}{% endblock %}
+    {% block extra_head %}
+    {% endblock %}
+  {% endblock title %}
+
+  {% block main_content %}
+  <section class="hero-section overflow-hidden">
+		<div class="hero-slider owl-carousel">
+			<div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="{% static 'img/slider-bg-1.jpg' %}">
+				<div class="container">
+                    {% block body %}
+
+                    {% if messages %}
+                    <div>
+                      <strong>Messages:</strong>
+                      <ul>
+                        {% for message in messages %}
+                        <li>{{message}}</li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                    {% endif %}
+                    {% block content %}
+                    {% endblock %}
+                    {% endblock %}
+                    {% block extra_body %}
+                    {% endblock %}
+				</div>
+			</div>
+
+		</div>
+
+    	<section class="newsletter-section">
+
+	    </section>
+
+  </section>
+  {% endblock main_content%}
+
