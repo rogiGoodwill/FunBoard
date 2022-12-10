@@ -1,7 +1,7 @@
 {% extends 'boardApp/base.html' %}
 {% load static %}
 
-{% block title %}Добро пожаловать!{% endblock title %}
+{% block title %}Создание объявления{% endblock title %}
 
 
 {% block main_content %}
@@ -11,6 +11,7 @@
 		<div class="hero-slider owl-carousel">
 			<div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="{% static 'img/slider-bg-1.jpg' %}">
 				<div style="color: white;">
+					<p>Создание нового объявления</p>
 					<form method="post" enctype="multipart/form-data">
 						{% csrf_token %}
 						{% if not ad.category %}
