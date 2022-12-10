@@ -376,8 +376,7 @@ ol {
 	width: 20px;
 	height: 20px;
 	right: 0;
-	top: 1px;
-	background-image: url("../img/icons/arrow-down.png");
+	top: 1px;	
 	background-repeat: no-repeat;
 	background-position: right center;
 }
@@ -392,7 +391,7 @@ ol {
 }
 
 .main-menu li a:hover:after {
-	background-image: url("../img/icons/arrow-down-color.png");
+	
 }
 
 .main-menu li a:hover i {
@@ -410,7 +409,7 @@ ol {
 }
 
 .main-menu li:hover>a:after {
-	background-image: url("../img/icons/arrow-down-color.png");
+	
 }
 
 .main-menu li .sub-menu {
@@ -527,7 +526,7 @@ ol {
 
 .hero-item p {
 	font-size: 24px;
-	color: rgba(255, 255, 255, 0.4);
+	color: rgba(255, 255, 255, 5.4);
 	font-weight: 500;
 	opacity: 0.39;
 	margin-bottom: 30px;
@@ -674,6 +673,7 @@ ol {
 
 .blog-item {
 	margin-top: 86px;
+	display: grid;
 }
 
 .blog-item .blog-thumb {

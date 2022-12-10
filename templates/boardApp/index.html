@@ -21,6 +21,71 @@
 	</section>
 	<!-- Hero section end-->
 
+
+
+
+	<!-- Blog section -->
+     <!-- Список объявлений -->
+	<section class="blog-section spad">
+		<div class="container">
+			<div>
+				<div style="text-align: center">
+					<div class="section-title text-white">
+						<h2>Последние объявления</h2>
+					</div>
+					<ul class="blog-filter">
+						<li><a href="#">Racing</a></li>
+						<li><a href="#">Shooters</a></li>
+						<li><a href="#">Strategy</a></li>
+						<li><a href="#">Online</a></li>
+					</ul>
+					{% for ad in ads %}
+						<!-- Blog item -->
+						<div class="blog-item">
+							<div class="blog-thumb" style="margin-left:auto;margin-right:auto;">
+								<img src="{% static './img/blog/1.jpg' %}" alt="">
+							</div>
+							<div class="blog-text text-box text-white">
+								<h4>{{ ad.category }}</h4>
+								<p>{{ ad.text|truncatechars:100 }}</p>
+								<a href="{% url 'ad-detail' ad.pk %}" class="read-more">Прочитать  <img src="{% static 'img/icons/double-arrow.png' %}" alt="#"/></a>
+							</div>
+						</div>
+					{% endfor %}
+					<br>
+					<div class="blog-text text-box text-white">
+						{% if is_paginated %}
+								<!-- Если доступна предыдущая страница, то даём ссылку на неё и самую первую страницу -->
+								{% if page_obj.has_previous %}
+									<a href="?page=1">Первая страница</a>
+									<a href="?page={{ page_obj.previous_page_number }}"><<<</a>
+								{% endif %}
+
+								<!-- Показываем только текущую страницу и ближайшие к ней, чтобы список не тянулся и не захламлял страницу -->
+								{% for num in page_obj.paginator.page_range %}
+									{% if page_obj.number == num %}
+										<a>{{ num }}</a>
+									{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+										<a href="?page={{ num }}">{{ num }}</a>
+									{% endif %}
+								{% endfor %}
+
+								<!-- Если есть следующая страница, то даём ссылку на неё и на самую последнюю страницу -->
+								{% if page_obj.has_next %}
+									<a href="?page={{ page_obj.next_page_number }}">>>></a>
+									<a href="?page={{ page_obj.paginator.num_pages }}">Последняя страница</a>
+								{% endif %}
+						{% endif %}
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</section>
+	<!-- Blog section end -->
+
+
 	<!-- Intro section -->
 	<section class="intro-section">
 		<div class="container">
@@ -48,136 +113,14 @@
 	</section>
 	<!-- Intro section end -->
 
-
-	<!-- Blog section -->
-     <!-- Список объявлений -->
-	<section class="blog-section spad">
-		<div class="container">
-			<div class="row">
-				<div class="col-xl-9 col-lg-8 col-md-7">
-					<div class="section-title text-white">
-						<h2>Последние объявления</h2>
-					</div>
-					<ul class="blog-filter">
-						<li><a href="#">Racing</a></li>
-						<li><a href="#">Shooters</a></li>
-						<li><a href="#">Strategy</a></li>
-						<li><a href="#">Online</a></li>
-					</ul>
-					<!-- Blog item -->
-					<div class="blog-item">
-						<div class="blog-thumb">
-							<img src="{% static './img/blog/1.jpg' %}" alt="">
-						</div>
-						<div class="blog-text text-box text-white">
-							<div class="top-meta">11.11.18  /  in <a href="">Games</a></div>
-							<h3>The best online game is out now!</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius-mod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consecte-tur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.....</p>
-							<a href="#" class="read-more">Read More  <img src="{% static 'img/icons/double-arrow.png' %}" alt="#"/></a>
-						</div>
-					</div>
-					<!-- Blog item -->
-					<div class="blog-item">
-						<div class="blog-thumb">
-							<img src="{% static './img/blog/2.jpg' %}" alt="">
-						</div>
-						<div class="blog-text text-box text-white">
-							<div class="top-meta">11.11.18  /  in <a href="">Games</a></div>
-							<h3>The best online game is out now!</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius-mod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consecte-tur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.....</p>
-							<a href="#" class="read-more">Read More  <img src="{% static 'img/icons/double-arrow.png' %}" alt="#"/></a>
-						</div>
-					</div>
-					<!-- Blog item -->
-					<div class="blog-item">
-						<div class="blog-thumb">
-							<img src="{% static './img/blog/3.jpg' %}" alt="">
-						</div>
-						<div class="blog-text text-box text-white">
-							<div class="top-meta">11.11.18  /  in <a href="">Games</a></div>
-							<h3>The best online game is out now!</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius-mod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Lorem ipsum dolor sit amet, consecte-tur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.....</p>
-							<a href="#" class="read-more">Read More  <img src="{% static 'img/icons/double-arrow.png' %}" alt="#"/></a>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-3 col-lg-4 col-md-5 sidebar">
-					<div id="stickySidebar">
-						<div class="widget-item">
-							<h4 class="widget-title">Trending</h4>
-							<div class="trending-widget">
-								<div class="tw-item">
-									<div class="tw-thumb">
-										<img src="{% static './img/blog-widget/1.jpg' %}" alt="#">
-									</div>
-									<div class="tw-text">
-										<div class="tw-meta">11.11.18  /  in <a href="">Games</a></div>
-										<h5>The best online game is out now!</h5>
-									</div>
-								</div>
-								<div class="tw-item">
-									<div class="tw-thumb">
-										<img src="{% static './img/blog-widget/2.jpg' %}" alt="#">
-									</div>
-									<div class="tw-text">
-										<div class="tw-meta">11.11.18  /  in <a href="">Games</a></div>
-										<h5>The best online game is out now!</h5>
-									</div>
-								</div>
-								<div class="tw-item">
-									<div class="tw-thumb">
-										<img src="{% static './img/blog-widget/3.jpg' %}" alt="#">
-									</div>
-									<div class="tw-text">
-										<div class="tw-meta">11.11.18  /  in <a href="">Games</a></div>
-										<h5>The best online game is out now!</h5>
-									</div>
-								</div>
-								<div class="tw-item">
-									<div class="tw-thumb">
-										<img src="{% static './img/blog-widget/4.jpg' %}" alt="#">
-									</div>
-									<div class="tw-text">
-										<div class="tw-meta">11.11.18  /  in <a href="">Games</a></div>
-										<h5>The best online game is out now!</h5>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="widget-item">
-							<div class="categories-widget">
-								<h4 class="widget-title">categories</h4>
-								<ul>
-									<li><a href="">Games</a></li>
-									<li><a href="">Gaming Tips & Tricks</a></li>
-									<li><a href="">Online Games</a></li>
-									<li><a href="">Team Games</a></li>
-									<li><a href="">Community</a></li>
-									<li><a href="">Uncategorized</a></li>
-								</ul>
-							</div>
-						</div>
-						<div class="widget-item">
-						<a href="#" class="add">
-							<img src="{% static './img/add.jpg' %}" alt="">
-						</a>
-					</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- Blog section end -->
-
-
 	<!-- Newsletter section -->
     <!-- Подписаться ??? -->
 	<section class="newsletter-section">
 		<div class="container">
-			<h2>Subscribe to our newsletter</h2>
+			<h2>Подпишитесь на рассылку</h2>
 			<form class="newsletter-form">
-				<input type="text" placeholder="ENTER YOUR E-MAIL">
-				<button class="site-btn">subscribe  <img src="{% static 'img/icons/double-arrow.png' %}" alt="#"/></button>
+				<input type="text" placeholder="Введите E-MAIL">
+				<button class="site-btn">подписаться  <img src="{% static 'img/icons/double-arrow.png' %}" alt="#"/></button>
 			</form>
 		</div>
 	</section>

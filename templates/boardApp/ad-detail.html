@@ -1,0 +1,38 @@
+{% extends 'boardApp/base.html' %}
+{% load static %}
+
+{% block title %}Добро пожаловать!{% endblock title %}
+
+
+{% block main_content %}
+
+    	<!-- Hero section -->
+	<section class="hero-section overflow-hidden">
+		<div class="hero-slider owl-carousel">
+			<div class="hero-item set-bg d-flex align-items-center justify-content-center text-center" data-setbg="{% static 'img/slider-bg-1.jpg' %}">
+				<div class="container">
+					<p>Тип: {{ ad.category }}</p>
+					<p>{{ ad.text }}</p>
+					<a href="{% url 'edit-ad' ad.pk %}"><button class="site-btn">Редактировать</button></a>
+
+				</div>
+			</div>
+
+		</div>
+	</section>
+	<!-- Hero section end-->
+
+	<!-- Newsletter section -->
+    <!-- Подписаться ??? -->
+	<section class="newsletter-section">
+		<div class="container">
+			<h2>Subscribe to our newsletter</h2>
+			<form class="newsletter-form">
+				<input type="text" placeholder="ENTER YOUR E-MAIL">
+				<button class="site-btn">subscribe  <img src="{% static 'img/icons/double-arrow.png' %}" alt="#"/></button>
+			</form>
+		</div>
+	</section>
+	<!-- Newsletter section end -->
+
+{% endblock main_content %}

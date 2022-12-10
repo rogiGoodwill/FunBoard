@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import User, Profile, Ad, Comments
+from .models import User, Ad, Comments, Category
 # Register your models here.
 
 admin.site.register(
-    (Profile,
-     Ad,
-     Comments)
+    (Ad,
+     Comments,
+     Category)
 )

@@ -4,49 +4,21 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+# class Profile(models.Model):
+#     profile = models.OneToOneField(User, on_delete=models.CASCADE)
 
 
-# class Category(models.Model):
-#     tanks = 'TNK'
-#     hills = 'HIL'
-#     DD = 'DD'
-#     dealers = 'DLR'
-#     gildmasters = 'GMR'
-#     questgivers = 'QGR'
-#     blacksmith = 'BST'
-#     tanner = 'TNR'
-#     potionMaster = 'PMR'
-#     spellMaster = 'SMR'
-#
-#     CATEGORIES = [
-#         (tanks, 'Танки'),
-#         (hills, 'Хиллы'),
-#         (DD, 'DD'),
-#         (dealers, 'Торговцы'),
-#         (gildmasters, 'Гилдмастеры'),
-#         (questgivers, 'Квестгиверы'),
-#         (blacksmith, 'Кузнецы'),
-#         (tanner, 'Кожевники'),
-#         (potionMaster, 'Зельевары'),
-#         (spellMaster, 'Мастеры заклинаний')
-#     ]
-#
-#     category = models.CharField(max_length=3, choices=CATEGORIES)
-
-
-class Ad(models.Model):
-    tanks = 'TNK'
-    hills = 'HIL'
+class Category(models.Model):
+    tanks = 'Танки'
+    hills = 'Хиллы'
     DD = 'DD'
-    dealers = 'DLR'
-    gildmasters = 'GMR'
-    questgivers = 'QGR'
-    blacksmith = 'BST'
-    tanner = 'TNR'
-    potionMaster = 'PMR'
-    spellMaster = 'SMR'
+    dealers = 'Торговцы'
+    gildmasters = 'Гилдмастеры'
+    questgivers = 'Квестгиверы'
+    blacksmith = 'Кузнецы'
+    tanner = 'Кожевники'
+    potionMaster = 'Зельевары'
+    spellMaster = 'Мастеры заклинаний'
 
     CATEGORIES = [
         (tanks, 'Танки'),
@@ -58,14 +30,49 @@ class Ad(models.Model):
         (blacksmith, 'Кузнецы'),
         (tanner, 'Кожевники'),
         (potionMaster, 'Зельевары'),
-        (spellMaster, 'Мастеры заклинаний')]
+        (spellMaster, 'Мастеры заклинаний')
+    ]
+
+    category = models.CharField(max_length=18, choices=CATEGORIES, blank=False, default='Танки', null=False)
+
+    def __str__(self):
+        return self.category
+class Ad(models.Model):
+    # tanks = 'TNK'
+    # hills = 'HIL'
+    # DD = 'DD'
+    # dealers = 'DLR'
+    # gildmasters = 'GMR'
+    # questgivers = 'QGR'
+    # blacksmith = 'BST'
+    # tanner = 'TNR'
+    # potionMaster = 'PMR'
+    # spellMaster = 'SMR'
+    #
+    # CATEGORIES = [
+    #     (tanks, 'Танки'),
+    #     (hills, 'Хиллы'),
+    #     (DD, 'DD'),
+    #     (dealers, 'Торговцы'),
+    #     (gildmasters, 'Гилдмастеры'),
+    #     (questgivers, 'Квестгиверы'),
+    #     (blacksmith, 'Кузнецы'),
+    #     (tanner, 'Кожевники'),
+    #     (potionMaster, 'Зельевары'),
+    #     (spellMaster, 'Мастеры заклинаний')]
 
 
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name='Пользователь')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
     text = models.TextField(verbose_name='Текст')
     picture = models.ImageField(verbose_name='Изображение', blank=True, null=True)
     videoLink = models.CharField(max_length=255, verbose_name='Ссылка на видео', blank=True, null=True)
-    category = models.CharField(max_length=3, choices=CATEGORIES, verbose_name='Категории', blank=False, default='TNK', null=False)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE ,verbose_name='Категории', blank=False, default='Танки', null=False)
+
+    def get_absolute_url(self):
+        return f'ad/{self.pk}'
+
+    def __str__(self):
+        return self.text[:20]+'...'
 
 
 class Comments(models.Model):
