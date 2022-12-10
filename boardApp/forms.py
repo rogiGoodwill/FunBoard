@@ -1,4 +1,5 @@
 from django.forms import ModelForm
+from django import forms
 from allauth.account.forms import SignupForm
 from django.contrib.auth.models import Group
 from .models import Ad
@@ -16,7 +17,12 @@ class SignUp(SignupForm):
 class CreateAdModelForm(ModelForm):
     class Meta:
         model = Ad
-        fields = ['text', 'picture', 'videoLink', 'category']
+        fields = ['title', 'text', 'picture', 'videoLink', 'category']
+
+        # widgets = {
+        #     'title': forms.TextInput(attrs={'style': 'margin-bottom:0px'}),
+        #     'text': forms.Textarea(attrs={'margin-bottom': '0px; width:100px'}),
+        # }
 
 
 

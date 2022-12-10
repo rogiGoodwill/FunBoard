@@ -43,11 +43,18 @@
 						<!-- Blog item -->
 						<div class="blog-item">
 							<div class="blog-thumb" style="margin-left:auto;margin-right:auto;">
-								<img src="{% static './img/blog/1.jpg' %}" alt="">
+
 							</div>
-							<div class="blog-text text-box text-white">
-								<h4>{{ ad.category }}</h4>
-								<p>{{ ad.text|truncatechars:100 }}</p>
+							<div class="blog-text text-box text-white"  style="border: solid;border-style: dashed solid;;border-color: white;">
+																{% if ad.picture %}
+									<img src="{{ ad.picture.url }}" alt="">
+								{% else %}
+									<img src="{% static './img/blog/1.jpg' %}" alt="">
+								{% endif %}
+								<h2>{{ ad.title|truncatechars:100 }}</h2>
+								<h4>{{ ad.text|truncatechars:100 }}</h4>
+								<h4>Тип: {{ ad.category }}</h4>
+								<p></p>
 								<a href="{% url 'ad-detail' ad.pk %}" class="read-more">Прочитать  <img src="{% static 'img/icons/double-arrow.png' %}" alt="#"/></a>
 							</div>
 						</div>
