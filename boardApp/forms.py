@@ -27,6 +27,6 @@ class CreateCommentModelForm(ModelForm):
     class Meta:
         model = Comments
         fields = '__all__'
-        exclude = ['user', 'ad']
+        exclude = ['user', 'ad', 'is_accepted']
 
 

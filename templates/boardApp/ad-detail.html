@@ -17,18 +17,20 @@
 					{% else %}
 						<div style="max-width:330px; display:inline-block"><img src="{% static './img/blog/1.jpg' %}" alt="изображение"></div>
 					{% endif %}
-					<p>Содержание объявления:</p>
-					<p>{{ ad.text }}</p>
+					<p style="font-size:18px; margin-bottom:0px">Содержание объявления:</p>
+					<p style="font-size:16px">{{ ad.text }}</p>
 					{% if ad.videoLink %}
-						<a href={{ad.videoLink}}><p>Ссылка на видео</p></a>
+						<a href={{ad.videoLink}}><p style="font-size:16px">Ссылка на видео</p></a>
 					{% endif %}
-					<p>Тип: {{ ad.category }}</p>
-					<p>Автор: {{ ad.user }}</p>
+					<p style="font-size:16px; margin-bottom:0px">Тип: {{ ad.category }}</p>
+					<p style="font-size:16px">Автор: {{ ad.user }}</p>
 					{% if ad.user == user_login %}
 						<a href="{% url 'edit-ad' ad.pk %}"><button class="site-btn">Редактировать</button></a>
 						<a href="{% url 'delete-ad' ad.pk %}"><button class="site-btn">Удалить</button></a>
 					{% endif %}
+					{% if ad.user != user_login %}
 						<a href="{% url 'ad-comment' ad.pk %}"><button class="site-btn">Оставить комментарий</button></a>
+					{% endif %}
 				</div>
 			</div>
 

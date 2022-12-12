@@ -1,6 +1,6 @@
 from django_filters import FilterSet, DateFilter, CharFilter
 from django.forms import DateInput
-from .models import Comments
+from .models import Comments, Ad
 
 
 
@@ -20,4 +20,5 @@ class CommentFilter(FilterSet):
     comment = CharFilter(field_name='comment', lookup_expr='icontains', label='Содержание отзыва:')
     class Meta:
         model = Comments
-        fields = ['published_date', 'ad']
+        fields = ['published_date']
+

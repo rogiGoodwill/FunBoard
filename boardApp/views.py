@@ -1,12 +1,12 @@
+from django.core.mail import EmailMultiAlternatives
+from django.conf import settings
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Ad, User, Category, Comments
 from .forms import CreateAdModelForm, CreateCommentModelForm
 from .filters import CommentFilter
-
-
-# Create your views here.
 
 
 class AdListView(ListView):
@@ -108,8 +108,6 @@ class CommentAdCreateView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['ad'] = Ad.objects.get(pk=self.kwargs.get('pk'))
-        # context['ad_user'] = self.request.user
-
         return context
 
     def form_valid(self, form):
@@ -145,6 +143,20 @@ class MyCommentsListView(ListView):
         return Comments.objects.filter(ad__user=user).order_by('-published_date')
 
 
+class CommentDetailView(LoginRequiredMixin, DetailView):
+    """
+    Представление показывает выбранный отзыв
+    """
+    template_name = 'boardApp/comment-detail.html'
+    model = Comments
+    context_object_name = 'comment'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_login'] = self.request.user
+        return context
+
+
 class CommentDeleteView(DeleteView):
     """
     Представление удаляет отзыв
@@ -152,7 +164,7 @@ class CommentDeleteView(DeleteView):
     template_name = 'boardApp/comment-delete.html'
     context_object_name = 'comment'
     queryset = Comments.objects.all()
-    success_url = '/'
+    success_url = '/comments/'
 
 
 def create_default_categories():
@@ -166,13 +178,35 @@ def create_default_categories():
     for cat in categories:
         Category.objects.create(category=cat)
 
-    # Category.objects.create(category='Танки')
-    # Category.objects.create(category='Хиллы')
-    # Category.objects.create(category='DD')
-    # Category.objects.create(category='Торговцы')
-    # Category.objects.create(category='Гилдмастеры')
-    # Category.objects.create(category='Квестгиверы')
-    # Category.objects.create(category='Кузнецы')
-    # Category.objects.create(category='Кожевники')
-    # Category.objects.create(category='Зельевары')
-    # Category.objects.create(category='Мастеры заклинаний')
+
+def comment_accepted_send_email(request, pk):
+    comments = Comments.objects.get(pk=pk)
+    comments.is_accepted = True
+    comments.save()
+    comment_text = comments.comment
+    comment_pk = comments.pk
+    ad_title = comments.ad.title
+
+    email = User.objects.get(pk=comments.user.pk).email
+    username = User.objects.get(pk=comments.user.pk)
+
+    html_content = render_to_string(
+        'boardApp/comment_accept.html',
+        context=
+        {'ad_title': ad_title,
+         'comment_text': comment_text,
+         'username': username,
+         'comment_pk': comment_pk,
+         'domain_url': settings.DOMAIN, }
+    )
+
+    msg = EmailMultiAlternatives(
+        subject='Новый отзыв',
+        from_email='django.testemail@yandex.ru',
+        to=[email, ]
+    )
+
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+
+    return redirect('/comments/')

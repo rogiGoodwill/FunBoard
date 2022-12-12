@@ -45,6 +45,7 @@ class Comments(models.Model):
     ad = models.ForeignKey(Ad, on_delete=models.CASCADE, verbose_name='Объявление')
     comment = models.TextField(verbose_name='Комментарий')
     published_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
+    is_accepted = models.BooleanField(default=False)
 
 
     def __str__(self):

@@ -14,7 +14,7 @@
 					<form method="post">
 						{% csrf_token %}
 						<p>Вы точно хотите удалить отзыв?</p>
-						<p>{{ comment.title }}</p>
+						<p>{{ comment.comment }}</p>
 						<input type="submit" class="btn btn-primary" value="Подтвердить удаление">
 					</form>
 
