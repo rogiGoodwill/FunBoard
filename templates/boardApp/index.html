@@ -13,7 +13,7 @@
 				<div class="container">
 					<h2>MMORPG</h2>
 					<p>Фанатский сервер MMORPG</p>
-					<a href="#" class="site-btn">Узнать больше  <img src="{% static 'img/icons/double-arrow.png' %}" alt="#"/></a>
+					<a href="#ads" class="site-btn">Узнать больше  <img src="{% static 'img/icons/double-arrow.png' %}" alt="#"/></a>
 				</div>
 			</div>
 
@@ -31,7 +31,7 @@
 			<div>
 				<div style="text-align: center">
 					<div class="section-title text-white">
-						<h2>Последние объявления</h2>
+						<h2>Последние объявления <a name="ads"></a></h2>
 					</div>
 					<ul class="blog-filter">
 						<li><a href="#">Racing</a></li>
@@ -54,6 +54,7 @@
 								<h2>{{ ad.title|truncatechars:100 }}</h2>
 								<h4>{{ ad.text|truncatechars:100 }}</h4>
 								<h4>Тип: {{ ad.category }}</h4>
+								<h4>Автор: {{ ad.user }}</h4>
 								<p></p>
 								<a href="{% url 'ad-detail' ad.pk %}" class="read-more">Прочитать  <img src="{% static 'img/icons/double-arrow.png' %}" alt="#"/></a>
 							</div>

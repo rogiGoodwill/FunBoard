@@ -69,7 +69,9 @@
 					<ul class="main-menu primary-menu">
 						<li><a href="/">На главную</a></li>
 						<li><a href="{% url 'create-ad' %}">Добавить объявление</a></li>
-						<li><a href="review.html">Reviews</a></li>
+						{% if request.user.is_authenticated %}
+							<li><a href="{% url 'my-comments' %}">Комментарии</a></li>
+						{% endif %}
 						<li><a href="blog.html">News</a></li>
 						<li><a href="contact.html">Contact</a></li>
 					</ul>
